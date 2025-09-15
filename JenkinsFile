@@ -6,9 +6,7 @@ pipeline {
         jdk 'Java 21'         // Must match name in Global Tool Configuration
     }
 
-    environment {
-        // You can define environment variables here if needed
-    }
+   
 
     stages {
         stage('Checkout') {
