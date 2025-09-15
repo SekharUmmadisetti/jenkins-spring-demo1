@@ -2,14 +2,25 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven 3.8.1' // Configure this in Jenkins settings
-        jdk 'Java 21'       // Configure this in Jenkins settings
+        maven 'Maven 3.8.1'   // Must match name in Global Tool Configuration
+        jdk 'Java 21'         // Must match name in Global Tool Configuration
+    }
+
+    environment {
+        // You can define environment variables here if needed
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/SekharUmmadisetti/jenkins-spring-demo1.git' // replace with your Git repo
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/main']],  // Change if your branch is not 'main'
+                    userRemoteConfigs: [[
+                        url: 'https://github.com/SekharUmmadisetti/jenkins-spring-demo1.git',
+                        credentialsId: 'sekhar'  // Change to your Jenkins credential ID
+                    ]]
+                ])
             }
         }
 
